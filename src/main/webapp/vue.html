@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue</title>
+</head>
+<body>
+
+<div id="app">
+
+    <input v-model="username">
+    <!--插值表达式-->
+    {{username}}<br><br>
+
+    <a :href="url">v-bind</a>
+    <input v-model="url"><br><br>
+
+    <input type="button" value="v-on" @click="show()"><br><br>
+
+    <div v-if="username === 'div1'">sb1</div>
+    <div v-else-if="username === 'div2'">sb2</div>
+    <div v-else>sb3</div>
+    <div v-show="username==='div3'">v-show</div><br>
+
+    <div v-for="addr in address">
+        {{addr}}<br>
+    </div>
+    <div v-for="(addr,i) in address">
+        {{i+1}}--{{addr}}<br>
+    </div>
+
+</div>
+
+
+<!-- 引入vue -->
+<script src="js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            username: 'v-model',
+            url: 'https://www.baidu.com',
+            address:['北京','上海','福州']
+        },
+        methods: {
+            show() {
+                alert('v-on')
+            }
+        },
+        mounted(){
+            alert("dsd")
+        }
+    })
+</script>
+
+
+</body>
+</html>

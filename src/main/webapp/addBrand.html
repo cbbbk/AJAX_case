@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>添加品牌</title>
+</head>
+<body>
+<div id="app">
+    <h3>添加品牌</h3>
+    <form action="" method="post">
+        品牌名称：<input id="brandName" v-model="formData.brandName" name="brandName"><br>
+        企业名称：<input id="companyName" v-model="formData.companyName" name="companyName"><br>
+        排序：<input id="ordered" v-model="formData.ordered" name="ordered"><br>
+        描述信息：<textarea rows="5" cols="20" id="description" v-model="formData.description"
+                           name="description"></textarea><br>
+        状态：
+        <input type="radio" v-model="formData.status" name="status" value="0">禁用
+        <input type="radio" v-model="formData.status" name="status" value="1">启用<br>
+
+        <input type="button" id="btn" value="提交" @click="submitForm">
+    </form>
+</div>
+
+<!--引入axios-->
+<script src="js/axios.js"></script>
+<script src="js/vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            formData: {},
+            a:"d"
+        },
+        methods: {
+            submitForm() {
+                let _this = this;
+                axios.post("http://localhost:8080/brand-demo/addServlet", _this.formData)
+                    .then(function (resp) {
+                        // 判断响应数据是否为 success
+                        if (resp.data === "success") {
+                            location.href = "http://localhost:8080/brand-demo/brand.html";
+                        }
+                    })
+            }
+        }
+    })
+
+
+    /*    // 1.给按钮绑定单机事件
+        document.getElementById("btn").onclick = function () {
+            // 将表单数据转为json
+            let formData = {
+                brandName: "",
+                companyName: "",
+                ordered: "",
+                description: "",
+                status: ""
+            }
+            formData.brandName = document.getElementById("brandName").value;
+            formData.companyName = document.getElementById("companyName").value;
+            formData.ordered = document.getElementById("ordered").value;
+            formData.description = document.getElementById("description").value;
+            let status = document.getElementsByName("status");
+            for (let i = 0; i < status.length; i++) {
+                if (status[i].checked) {
+                    formData.status = status[i].value;
+                }
+            }
+            // 输出到控制台
+            console.log(formData);
+
+            // 发送
+            axios.post("http://localhost:8080/brand-demo/addServlet", formData)
+                .then(function (resp) {
+                    // 判断响应数据是否为 success
+                    if (resp.data === "success") {
+                        location.href = "http://localhost:8080/brand-demo/brand.html";
+                    }
+                })
+        }*/
+</script>
+
+</body>
+</html>
